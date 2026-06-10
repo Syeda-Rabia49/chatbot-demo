@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Oakwood Essentials</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #faf9f7; color: #2c2c2c; }
+
+        /* NAV */
+        nav { background: #fff; border-bottom: 1px solid #e8e4df; padding: 0 60px; display: flex; align-items: center; justify-content: space-between; height: 68px; position: sticky; top: 0; z-index: 100; }
+        .nav-logo { font-family: 'Playfair Display', serif; font-size: 20px; letter-spacing: 2px; color: #2c2c2c; }
+        .nav-links { display: flex; gap: 32px; }
+        .nav-links a { text-decoration: none; color: #666; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; }
+        .nav-links a:hover { color: #2c2c2c; }
+        .nav-actions { display: flex; gap: 16px; align-items: center; }
+        .nav-actions a { text-decoration: none; color: #666; font-size: 13px; }
+        .cart-btn { background: #2c2c2c; color: #fff; border: none; padding: 10px 20px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; }
+
+        /* HERO */
+        .hero { background: #f0ede8; padding: 100px 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .hero-tag { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #999; margin-bottom: 16px; }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 52px; line-height: 1.15; color: #1a1a1a; margin-bottom: 20px; }
+        .hero p { font-size: 15px; color: #666; line-height: 1.8; margin-bottom: 32px; max-width: 420px; }
+        .hero-btns { display: flex; gap: 12px; }
+        .product-img img{width:100%; height:100%; object-fit:cover; }
+        .hero-image img{ width:100%; height:100%; object-fit:cover; }
+        .btn-primary { background: #2c2c2c; color: #fff; border: none; padding: 14px 32px; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; }
+        .btn-secondary { background: transparent; color: #2c2c2c; border: 1px solid #2c2c2c; padding: 14px 32px; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; }
+        .hero-image { background: #e8e3dc; height: 420px; display: flex; align-items: center; justify-content: center; }
+        .hero-image-placeholder { text-align: center; color: #aaa; }
+        .hero-image-placeholder svg { width: 80px; height: 80px; opacity: 0.4; }
+        .hero-image-placeholder p { font-size: 13px; margin-top: 12px; }
+
+        /* BANNER */
+        .banner { background: #2c2c2c; color: #fff; text-align: center; padding: 14px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* CATEGORIES */
+        .section { padding: 80px 60px; }
+        .section-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 40px; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 30px; }
+        .section-link { font-size: 12px; color: #999; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid #ccc; }
+        .categories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+       .category-card img{ width:100%; height:200px; object-fit:cover; margin-bottom:15px; border-radius:8px; }
+ .category-card { background: #f0ede8; padding: 40px 30px; cursor: pointer; transition: background 0.2s; }
+        .category-card:hover { background: #e8e3dc; }
+        .category-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 8px; }
+        .category-card p { font-size: 12px; color: #888; letter-spacing: 0.5px; }
+
+        /* PRODUCTS */
+        .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        .product-card { cursor: pointer; }
+        .product-img { background: #f0ede8; height: 280px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; position: relative; overflow: hidden; }
+        .product-img:hover .product-overlay { opacity: 1; }
+        .product-overlay { position: absolute; inset: 0; background: rgba(44,44,44,0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+        .product-overlay button { background: #fff; color: #2c2c2c; border: none; padding: 12px 24px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; }
+        .product-icon { font-size: 48px; opacity: 0.2; }
+        .product-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+        .product-desc { font-size: 12px; color: #888; margin-bottom: 8px; }
+        .product-price { font-size: 15px; font-weight: 500; }
+        .product-badge { position: absolute; top: 12px; left: 12px; background: #2c2c2c; color: #fff; font-size: 10px; padding: 4px 10px; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* FEATURES */
+        .features { background: #f0ede8; }
+        .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+        .feature { text-align: center; }
+        .feature-icon { font-size: 28px; margin-bottom: 12px; opacity: 0.6; }
+        .feature h4 { font-size: 13px; font-weight: 500; letter-spacing: 0.5px; margin-bottom: 6px; text-transform: uppercase; }
+        .feature p { font-size: 12px; color: #888; line-height: 1.6; }
+
+        /* TESTIMONIAL */
+        .testimonial-section { background: #2c2c2c; color: #fff; padding: 80px 60px; text-align: center; }
+        .testimonial-section blockquote { font-family: 'Playfair Display', serif; font-size: 24px; line-height: 1.6; max-width: 700px; margin: 0 auto 20px; }
+        .testimonial-author { font-size: 12px; color: #aaa; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* NEWSLETTER */
+        .newsletter { padding: 80px 60px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #e8e4df; }
+        .newsletter h3 { font-family: 'Playfair Display', serif; font-size: 26px; }
+        .newsletter p { font-size: 13px; color: #888; margin-top: 6px; }
+        .newsletter-form { display: flex; gap: 0; }
+        .newsletter-form input { border: 1px solid #ddd; padding: 14px 20px; font-size: 13px; width: 280px; outline: none; font-family: 'Inter', sans-serif; }
+        .newsletter-form button { background: #2c2c2c; color: #fff; border: none; padding: 14px 24px; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; }
+
+        /* FOOTER */
+        footer { background: #1a1a1a; color: #888; padding: 48px 60px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+        footer .footer-brand { font-family: 'Playfair Display', serif; font-size: 18px; color: #fff; letter-spacing: 2px; margin-bottom: 12px; }
+        footer p { font-size: 12px; line-height: 1.8; }
+        footer h5 { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #fff; margin-bottom: 16px; }
+        footer ul { list-style: none; }
+        footer ul li { font-size: 12px; margin-bottom: 8px; cursor: pointer; }
+        footer ul li:hover { color: #ccc; }
+        .footer-bottom { background: #111; color: #555; text-align: center; padding: 16px; font-size: 11px; letter-spacing: 1px; }
+
+        /* CHATBOT */
+        #chat-bubble {
+            position: fixed; bottom: 28px; right: 28px;
+            background: #2c2c2c; color: #fff;
+            border: none; border-radius: 50px;
+            padding: 14px 22px; cursor: pointer;
+            font-size: 14px; font-family: 'Inter', sans-serif;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+            display: flex; align-items: center; gap: 8px;
+            z-index: 1000;
+            transition: transform 0.2s;
+        }
+        #chat-bubble:hover { transform: scale(1.04); }
+        #chat-bubble .dot { width: 8px; height: 8px; background: #4caf7d; border-radius: 50%; }
+
+        #chat-window {
+            display: none;
+            position: fixed; bottom: 90px; right: 28px;
+            width: 380px; height: 540px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.18);
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 1000;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .chat-header {
+            background: #2c2c2c; color: #fff;
+            padding: 18px 20px;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .chat-avatar {
+            width: 38px; height: 38px; border-radius: 50%;
+            background: #4a4a4a;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px;
+        }
+        .chat-header-info strong { display: block; font-size: 14px; }
+        .chat-header-info span { font-size: 11px; color: #4caf7d; }
+
+        #messages {
+            flex: 1; overflow-y: auto; padding: 18px;
+            display: flex; flex-direction: column; gap: 12px;
+            background: #faf9f7;
+        }
+        #messages::-webkit-scrollbar { width: 4px; }
+        #messages::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+
+        .message { max-width: 82%; font-size: 13.5px; line-height: 1.55; }
+        .bot { align-self: flex-start; }
+        .user { align-self: flex-end; }
+        .bot .bubble { background: #fff; border: 1px solid #e8e4df; color: #2c2c2c; padding: 10px 14px; border-radius: 16px; border-bottom-left-radius: 4px; }
+        .user .bubble { background: #2c2c2c; color: #fff; padding: 10px 14px; border-radius: 16px; border-bottom-right-radius: 4px; }
+        .msg-time { font-size: 10px; color: #bbb; margin-top: 4px; padding: 0 4px; }
+        .bot .msg-time { text-align: left; }
+        .user .msg-time { text-align: right; }
+
+        .typing .bubble { background: #fff; border: 1px solid #e8e4df; padding: 12px 16px; border-radius: 16px; border-bottom-left-radius: 4px; display: flex; gap: 4px; align-items: center; }
+        .typing-dot { width: 6px; height: 6px; background: #bbb; border-radius: 50%; animation: bounce 1.2s infinite; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+
+        .quick-replies { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+        .quick-reply { background: #fff; border: 1px solid #e8e4df; color: #555; padding: 6px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+        .quick-reply:hover { background: #2c2c2c; color: #fff; border-color: #2c2c2c; }
+
+        .chat-input {
+            display: flex; padding: 12px 14px; border-top: 1px solid #eee;
+            gap: 8px; background: #fff; align-items: center;
+        }
+        .chat-input input {
+            flex: 1; padding: 10px 14px;
+            border: 1px solid #e8e4df; border-radius: 24px;
+            outline: none; font-size: 13px; font-family: 'Inter', sans-serif;
+            background: #faf9f7; color: #2c2c2c;
+        }
+        .chat-input input:focus { border-color: #bbb; }
+        .send-btn {
+            background: #2c2c2c; color: #fff; border: none;
+            border-radius: 50%; width: 38px; height: 38px;
+            cursor: pointer; font-size: 16px; display: flex;
+            align-items: center; justify-content: center;
+            flex-shrink: 0; transition: background 0.2s;
+        }
+        .send-btn:hover { background: #444; }
+        .chat-footer { text-align: center; padding: 6px; font-size: 10px; color: #ccc; background: #fff; }
+    </style>
+</head>
+<body>
+
+<!-- Announcement Banner -->
+<div class="banner">Free shipping on orders over $50 &nbsp;·&nbsp; Use code WELCOME10 for 10% off your first order</div>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-logo">🪵 OAKWOOD ESSENTIALS</div>
+    <div class="nav-links">
+        <a href="#">Shop</a>
+        <a href="#">Collections</a>
+        <a href="#">About</a>
+        <a href="#">Journal</a>
+    </div>
+    <div class="nav-actions">
+        <a href="#">Search</a>
+        <a href="#">Account</a>
+        <button class="cart-btn">Cart (0)</button>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div>
+        <p class="hero-tag">New Collection — Summer 2026</p>
+        <h1>Bring Nature<br>Into Your Home</h1>
+        <p>Handcrafted home decor made from natural materials. Each piece is designed to bring warmth, calm, and beauty to your everyday spaces.</p>
+        <div class="hero-btns">
+            <button class="btn-primary">Shop Now</button>
+            <button class="btn-secondary">Our Story</button>
+        </div>
+    </div>
+    <div class="hero-image">
+    <img src="images/hero.jpg" alt="Featured Product">
+</div>
+</section>
+
+<!-- Categories -->
+<section class="section">
+    <div class="section-header">
+        <h2 class="section-title">Shop by Category</h2>
+        <a href="#" class="section-link">View All</a>
+    </div>
+    <div class="categories">
+       <div class="category-card">
+         <img src="images/ceramics.jpg" alt="Ceramics">
+        <h3>Ceramics & Vases</h3>
+        <p>12 products</p>
+    </div>
+       <div class="category-card">
+    <img src="images/textiles.jpg" alt="Textiles">
+    <h3>Textiles & Blankets</h3>
+    <p>8 products</p>
+</div>
+        <div class="category-card">
+    <img src="images/scents.jpg" alt="Candles">
+    <h3>Candles & Scents</h3>
+    <p>15 products</p>
+</div>
+    </div>
+</section>
+
+<!-- Products -->
+<section class="section" style="padding-top: 0;">
+    <div class="section-header">
+        <h2 class="section-title">Bestsellers</h2>
+        <a href="#" class="section-link">See All Products</a>
+    </div>
+    <div class="products">
+        <div class="product-card">
+            <div class="product-img">
+                <div class="product-badge">Bestseller</div>
+                <img src="images/vase.jpg" alt="Ceramic Vase">
+                <div class="product-overlay"><button>Quick Add</button></div>
+            </div>
+            <div class="product-name">Ceramic Vase</div>
+            <div class="product-desc">Handcrafted · Matte finish · 3 colors</div>
+            <div class="product-price">$24.99</div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">
+               <img src="images/candle.jpg" alt="Scented Soy Candle">
+                <div class="product-overlay"><button>Quick Add</button></div>
+            </div>
+            <div class="product-name">Scented Soy Candle</div>
+            <div class="product-desc">45hr burn time · 3 scents · Reusable jar</div>
+            <div class="product-price">$22.99</div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">
+                <div class="product-badge">New</div>
+               <img src="images/wall.jpg" alt="Woven Wall Hanging">
+                <div class="product-overlay"><button>Quick Add</button></div>
+            </div>
+            <div class="product-name">Woven Wall Hanging</div>
+            <div class="product-desc">Handmade · Natural cotton · 40×60cm</div>
+            <div class="product-price">$39.99</div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">
+                <img src="images/marble.jpg" alt="Marble Serving Board">
+                <div class="product-overlay"><button>Quick Add</button></div>
+            </div>
+            <div class="product-name">Marble Serving Board</div>
+            <div class="product-desc">Genuine marble · Gold handles · 30×20cm</div>
+            <div class="product-price">$34.99</div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">
+                <img src="images/holder.jpg" alt="Wooden Candle Holder">
+                <div class="product-overlay"><button>Quick Add</button></div>
+            </div>
+            <div class="product-name">Wooden Candle Holder</div>
+            <div class="product-desc">FSC certified · Oak & walnut finish</div>
+            <div class="product-price">$18.99</div>
+        </div>
+        <div class="product-card">
+            <div class="product-img">
+                <div class="product-badge">Bundle</div>
+                <img src="images/bundle.jpg" alt="Cozy Home Bundle">
+                <div class="product-overlay"><button>Quick Add</button></div>
+            </div>
+            <div class="product-name">Cozy Home Bundle</div>
+            <div class="product-desc">Blanket + Candle + Holder · Save $11</div>
+            <div class="product-price">$79.99</div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="section features">
+    <div class="features-grid">
+        <div class="feature">
+            <div class="feature-icon">🚚</div>
+            <h4>Free Shipping</h4>
+            <p>On all orders over $50. Ships to US, UK, Canada & Australia.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">↩️</div>
+            <h4>30-Day Returns</h4>
+            <p>Not happy? Return it within 30 days, no questions asked.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🌿</div>
+            <h4>Sustainably Made</h4>
+            <p>All products use FSC certified or sustainably sourced materials.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🔒</div>
+            <h4>Secure Checkout</h4>
+            <p>SSL encrypted. We accept Visa, PayPal, Apple Pay & more.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial -->
+<section class="testimonial-section">
+    <blockquote>"Oakwood Essentials transformed my living room. Every piece feels intentional, warm, and beautifully made."</blockquote>
+    <p class="testimonial-author">— Sarah M., verified customer</p>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter">
+    <div>
+        <h3>Stay in the Loop</h3>
+        <p>Get early access to new collections and exclusive offers.</p>
+    </div>
+    <div class="newsletter-form">
+        <input type="email" placeholder="Your email address">
+        <button>Subscribe</button>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div>
+        <div class="footer-brand">🪵 OAKWOOD ESSENTIALS</div>
+        <p>Premium home decor crafted with care. Bringing nature's warmth into modern homes since 2020.</p>
+    </div>
+    <div>
+        <h5>Shop</h5>
+        <ul>
+            <li>All Products</li>
+            <li>New Arrivals</li>
+            <li>Bestsellers</li>
+            <li>Bundles</li>
+        </ul>
+    </div>
+    <div>
+        <h5>Help</h5>
+        <ul>
+            <li>Shipping Info</li>
+            <li>Returns</li>
+            <li>FAQ</li>
+            <li>Contact Us</li>
+        </ul>
+    </div>
+    <div>
+        <h5>Company</h5>
+        <ul>
+            <li>About Us</li>
+            <li>Sustainability</li>
+            <li>Press</li>
+            <li>Careers</li>
+        </ul>
+    </div>
+</footer>
+<div class="footer-bottom">© 2026 Oakwood Essentials. All rights reserved.</div>
+
+<!-- Chat Bubble -->
+<button id="chat-bubble" onclick="toggleChat()">
+    <span class="dot"></span>
+    Chat with us
+</button>
+
+<!-- Chat Window -->
+<div id="chat-window">
+    <div class="chat-header">
+        <div class="chat-avatar">🌿</div>
+        <div class="chat-header-info">
+            <strong>Oakwood Support</strong>
+            <span>● Online now</span>
+        </div>
+    </div>
+    <div id="messages">
+        <div class="message bot">
+            <div class="bubble">Hey there! 👋 Welcome to Oakwood Essentials. How can I help you today?</div>
+            <div class="msg-time">Just now</div>
+            <div class="quick-replies">
+                <button class="quick-reply" onclick="sendQuick('What products do you sell?')">Products</button>
+                <button class="quick-reply" onclick="sendQuick('How long does shipping take?')">Shipping</button>
+                <button class="quick-reply" onclick="sendQuick('What is your return policy?')">Returns</button>
+                <button class="quick-reply" onclick="sendQuick('Do you have any discounts?')">Discounts</button>
+            </div>
+        </div>
+    </div>
+    <div class="chat-input">
+        <input type="text" id="user-input" placeholder="Ask me anything..." onkeypress="handleKey(event)"/>
+        <button class="send-btn" onclick="sendMessage()">➤</button>
+    </div>
+    <div class="chat-footer">Powered by AI · Oakwood Essentials</div>
+</div>
+
+<script>
+    function toggleChat() {
+        const w = document.getElementById('chat-window');
+        w.style.display = w.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function handleKey(e) {
+        if (e.key === 'Enter') sendMessage();
+    }
+
+    function sendQuick(text) {
+        document.getElementById('user-input').value = text;
+        sendMessage();
+    }
+
+    function getTime() {
+        return new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    }
+
+    async function sendMessage() {
+        const input = document.getElementById('user-input');
+        const messages = document.getElementById('messages');
+        const text = input.value.trim();
+        if (!text) return;
+
+        messages.innerHTML += `
+            <div class="message user">
+                <div class="bubble">${text}</div>
+                <div class="msg-time">${getTime()}</div>
+            </div>`;
+        input.value = '';
+        messages.scrollTop = messages.scrollHeight;
+
+        messages.innerHTML += `
+            <div class="message bot typing" id="typing">
+                <div class="bubble">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>`;
+        messages.scrollTop = messages.scrollHeight;
+
+        try {
+            const res = await fetch('http://127.0.0.1:5000/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: text })
+            });
+            const data = await res.json();
+            document.getElementById('typing').remove();
+
+            const formatted = data.reply
+                .replace(/\*\s/g, '')
+                .replace(/\n-\s/g, '\n• ')
+                .replace(/\n/g, '<br>');
+
+            messages.innerHTML += `
+                <div class="message bot">
+                    <div class="bubble">${formatted}</div>
+                    <div class="msg-time">${getTime()}</div>
+                </div>`;
+            messages.scrollTop = messages.scrollHeight;
+        } catch {
+            document.getElementById('typing').remove();
+            messages.innerHTML += `
+                <div class="message bot">
+                    <div class="bubble">Sorry, something went wrong. Please try again!</div>
+                    <div class="msg-time">${getTime()}</div>
+                </div>`;
+        }
+    }
+</script>
+</body>
+</html>
