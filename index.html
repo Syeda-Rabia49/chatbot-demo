@@ -43,7 +43,7 @@
         .section-link { font-size: 12px; color: #999; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid #ccc; }
         .categories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
        .category-card img{ width:100%; height:200px; object-fit:cover; margin-bottom:15px; border-radius:8px; }
- .category-card { background: #f0ede8; padding: 40px 30px; cursor: pointer; transition: background 0.2s; }
+        .category-card { background: #f0ede8; padding: 40px 30px; cursor: pointer; transition: background 0.2s; }
         .category-card:hover { background: #e8e3dc; }
         .category-card h3 { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 8px; }
         .category-card p { font-size: 12px; color: #888; letter-spacing: 0.5px; }
@@ -470,7 +470,7 @@
         messages.scrollTop = messages.scrollHeight;
 
         try {
-            const res = await fetch('http://127.0.0.1:5000/chat', {
+           const res = await fetch('https://hardware-habitant-stranger.ngrok-free.dev/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: text })
